@@ -6,7 +6,7 @@ PRG_NAME = run
 $(PRG_NAME): $(OBJS)
 	$(CC) $(CFLAGS) -o $(PRG_NAME) $(OBJS)
 
-main.o: 
+main.o: Puzzle1.h Puzzle2.h
 
 clean:
 	rm $(OBJS) $(PRG_NAME)
