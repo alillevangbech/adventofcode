@@ -28,7 +28,8 @@ void second_puzzle()
 	std::cout << "valid passwords: " << valid_count;
 	
 	ifile.close();
-
+	delete lower;
+	delete upper;
 }
 
 #endif

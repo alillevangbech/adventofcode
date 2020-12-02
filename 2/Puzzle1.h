@@ -25,8 +25,9 @@ void first_puzzle()
 		if (*lower <= word_count && word_count <= *upper) valid_count++;
 	}
 	std::cout << "valid passwords: " << valid_count;
-	
-	ifile.close();
 
+	ifile.close();
+	delete lower;
+	delete upper;
 }
 #endif
