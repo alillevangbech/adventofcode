@@ -4,6 +4,14 @@
 
 void placeholder(); 
 
+
+
+struct passport
+{
+
+};
+
+
 #endif
 
 
