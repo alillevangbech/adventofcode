@@ -4,9 +4,12 @@
 
 #include "utils.h"
 #include <iostream>
+#include <fstream>
+
 
 void first_puzzle()
 {
 	std::cout << " ################ PUZZLE ONE ################\n\n " << std::endl;
+	
 }
 #endif
