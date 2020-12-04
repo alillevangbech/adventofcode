@@ -28,10 +28,12 @@ void first_puzzle()
 	string targetBag = "shiny gold";
 	for (int i = 0; i < holder.size(); i++)
 	{
-		cout << "index: " << i << endl;
 		count += searchBag(holder,holder[i],targetBag);	
 	}
-	cout << holder.size() << endl;
+	
+	// Is there a rule for shiny gold bags?
+	count -= findBag(holder,targetBag) != -1;
+	
 	cout << "count: " << count;
 	ifile.close();
 }

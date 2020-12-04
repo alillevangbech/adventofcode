@@ -60,6 +60,20 @@ bool searchBag(const vector<bag>& allBags, const bag& startBag, const std::strin
 	return success > 0;
 }
 
+long countBag(const vector<bag>& allBags, const bag& startBag, const string& name)
+{
+	long sum = 1;
+	int index = 0;
+
+	for (std::pair<std::string,int> innerBag : startBag.m_map)
+	{
+		index = findBag(allBags,innerBag.first);
+		sum += innerBag.second*countBag(allBags, allBags[index], name);
+	}
+	//cout << startBag.name << ": " << sum << endl;
+	return sum;
+}
+
 
 #endif
 
