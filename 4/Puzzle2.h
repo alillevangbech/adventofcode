@@ -33,8 +33,15 @@ void second_puzzle()
 	}
 	
 
-	auto byr = [] (std::string s) { return std::regex_match(s, std::regex("[1920-2020]"));};
-
+	auto byr = [] (std::string s) { return std::regex_match(s, std::regex("19[2-9]\\d|200[0-2]"));};
+	auto iyr = [] (std::string s) { return std::regex_match(s, std::regex("201\\d|2020"));};
+	auto eyr = [] (std::string s) { return std::regex_match(s, std::regex("202\\d|2030"));};
+	auto hgt = [] (std::string s)
+	{ return std::regex_match(s, std::regex("1[5-8]\\dcm|19[0-3]cm|59in|6\\din|7[0-6]in"));};
+	auto hcl = [] (std::string s) { return std::regex_match(s, std::regex("#[0-9a-f]{6}"));};
+	auto ecl = [] (std::string s)
+	{ return std::regex_match(s, std::regex("amb|blu|brn|gry|grn|hzl|oth"));};
+	auto pid = [] (std::string s) { return std::regex_match(s, std::regex("\\d{9}"));};
 
 	int count = 0;
 	std::vector<std::string> req {"byr","iyr","eyr","hgt","hcl","ecl","pid"};
@@ -44,15 +51,41 @@ void second_puzzle()
 		reset_vector(record);
 		for (int j = 0; j < req.size(); j++)
 		{
-			if (holder[i].find(req[j]) != holder[i].end()) record[j] = true;
-			if (req[j] == "byr")
+			if (holder[i].find(req[j]) != holder[i].end()) 
 			{
-				std::cout << holder[i]["lol"] << "   " <<  i << std::endl;
+				record[j] = true; 
+				switch (j) {
+					
+				case 0:
+					  record[j] = byr(holder[i][req[j]]);
+					  break;
+				case 1:
+					  record[j] = iyr(holder[i][req[j]]);
+					  break;
+				case 2:
+					  record[j] = eyr(holder[i][req[j]]);
+					  break;
+				case 3:
+					  record[j] = hgt(holder[i][req[j]]);
+					  break;
+				case 4:
+					  record[j] = hcl(holder[i][req[j]]);
+					  break;
+				case 5:
+					  record[j] = ecl(holder[i][req[j]]);
+					  break;
+				case 6:
+					  record[j] = pid(holder[i][req[j]]);
+					  break;
+				}
 			}
 		}
 		count += check_vector(record);
 	}
 
 	std::cout << count;
+
 	ifile.close();
-	delete[] raw_data;"lol"ndif
+	delete[] raw_data;
+}
+#endif
