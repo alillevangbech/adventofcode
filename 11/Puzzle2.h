@@ -7,6 +7,8 @@
 void second_puzzle()
 {
 	std::cout << "\n\n ############### SECOND PUZZLE ##############\n\n" << std::endl;
+	vector<vector<char>> map = loaddata();
+	cout << convergeandcount2(map);
 }
 
 #endif

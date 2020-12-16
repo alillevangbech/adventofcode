@@ -4,14 +4,15 @@
 
 #include "utils.h"
 #include <iostream>
-#include <vector>
-#include <fstream>
 
-
-
+using namespace std;
 
 void first_puzzle()
 {
 	std::cout << " ################ PUZZLE ONE ################\n\n " << std::endl;
+	vector<int> holder = loaddata();
+	std::cout << "sum: " << algo1(holder) << endl;
+
+	
 }
 #endif
