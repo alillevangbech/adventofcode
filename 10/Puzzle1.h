@@ -4,6 +4,11 @@
 
 #include "utils.h"
 #include <iostream>
+#include <vector>
+#include <fstream>
+
+
+
 
 void first_puzzle()
 {

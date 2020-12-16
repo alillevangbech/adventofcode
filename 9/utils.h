@@ -51,7 +51,6 @@ long getXMASWeakness(const vector<long>& holder, int preamble)
 			test += holder[j];
 			if (test == XMASResult)
 			{
-				std::cout << i << ": " << j << endl;
 				auto b = holder.begin() + i;
 				auto e = holder.begin() + j;
 				return *max_element(b,e) + *min_element(b,e);
