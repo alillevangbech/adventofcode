@@ -7,6 +7,9 @@
 void second_puzzle()
 {
 	std::cout << "\n\n ############### SECOND PUZZLE ##############\n\n" << std::endl;
+	vector<instruct> holder = loaddata();
+	int nav = navigate2(holder);
+	cout << "manhatten: " <<  nav << endl;
 }
 
 #endif

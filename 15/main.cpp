@@ -5,6 +5,6 @@
 int main()
 {
 	first_puzzle();
-	second_puzzle();
+	//second_puzzle();
 	return 0;
 }
