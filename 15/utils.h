@@ -8,20 +8,15 @@
 #include <sstream>
 #include <algorithm>
 #include <iostream>
+#include <unordered_map>
+
 using namespace std;
+typedef std::unordered_map<int,int> numbermap;
 
-struct number
+vector<int> loaddata(string s)
 {
-	int value;
-	int turnlastspoken;
-};
-
-vector<int> loaddata()
-{
-	//string s = "0,13,16,17,1,10,6";
-	string s = "0,3,6";
-	stringstream ss(s);
 	vector<int> v;
+	stringstream ss(s);
 	while(getline(ss,s,','))
 	{
 		v.push_back(std::stoi(s));
@@ -29,67 +24,47 @@ vector<int> loaddata()
 	return v;
 }
 
-
-void insertionsort(vector<number>& v, number n)
+int playturns(vector<int> startnumbers, int turns)
 {
-	if (v.size() == 0)
+	numbermap dict;
+	int turn = 1;
+	int spoken_number = 0;
+	int temp = 0;
+	for (int e : startnumbers)
 	{
-		v.push_back(n);
-		return;
-	}
-	for (auto it = v.begin(); it != v.end(); it++)
-	{
-		if (n.value < it->value)
+		if (dict.find(e) == dict.end())
 		{
-			v.insert(it--,n);
-			return;
+			dict[e] = turn;
+			spoken_number = 0;
 		}
+		else
+		{
+			spoken_number = turn - dict[e];
+			dict[e] = turn;
+		}
+		//cout << turn << ": " << spoken_number << endl;
+		turn++;
 	}
-	v.push_back(n);
-}
 
-int binarysearch(vector<number>& v, int item, int low, int high)
-{
-	if (high <= low) return item == v[low].value ? low : -1;
-	
-	int mid = (low+high)/2;
-
-	if (item == v[mid].value) return mid;
-	if (item > v[mid].value) return binarysearch(v, item, mid+1, high);
-	return binarysearch(v,item,low,mid-1);
-}
-
-number createnumber(int value,int turn)
-{
-	number a;
-	a.value = value;
-	a.turnlastspoken = turn;
-	return a;
-}
-
-void printv(vector<number>& v)
-{
-	for (number n : v) cout << n.value << " ";
-	cout << endl;
-}
-
-int playturn(vector<number>& v, int turn, int spoken_number)
-{
-	int size = v.size();
-	int idx = binarysearch(v,spoken_number,0,size-1);
-	if (idx != -1)
+	while (turn < turns)
 	{
-		int turnlastspoken = v[idx].turnlastspoken;
-		//cout << "### " << spoken_number << ": " << turn << ": " << turnlastspoken << endl;
-		v[idx].turnlastspoken = turn;
-		return turn - turnlastspoken;
+		if (dict.find(spoken_number) == dict.end())
+		{
+			dict[spoken_number] = turn;
+			spoken_number = 0;
+			//cout << turn << ": " << spoken_number << "not found " << endl;
+		}
+		else
+		{
+			temp = turn - dict[spoken_number];
+			dict[spoken_number] = turn;
+			spoken_number = temp;
+			//cout << turn << ": " << spoken_number << " found" << endl;
+		}
+		turn++;
 	}
-	else
-	{
-		number a = createnumber(spoken_number,turn);
-		insertionsort(v,a);
-		return 0;
-	}
+
+	return spoken_number;
 }
 
 #endif
