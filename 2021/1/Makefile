@@ -8,12 +8,11 @@ CFLAGS = -Os -std=c++17;
 CC = g++
 INPUT = input.txt
 #INPUT = test.txt
-RUN = awk -f pipe.awk $(INPUT) | ./$(PRG)
-RUN_PUZZLE1 = awk -f pipe.awk $(INPUT) | ./$(PZL1)
-RUN_PUZZLE2 = awk -f pipe.awk $(INPUT) | ./$(PZL2)
+RUN = awk -f pipe.awk $(INPUT) | ./$(PRG) | ../out
+RUN_PUZZLE1 = awk -f pipe.awk $(INPUT) | ./$(PZL1) | ../
+RUN_PUZZLE2 = awk -f pipe.awk $(INPUT) | ./$(PZL2) | ../
 
 run: build input
-	@echo -----------
 	$(RUN)
 
 build:
@@ -35,7 +34,7 @@ save2:
 	cp main.cpp puzzle2.cpp
 
 input:
-	touch $(INPUT)
+	@touch $(INPUT)
 
 clean:
 	rm -rf $(PRG) input.txt test.txt .cache

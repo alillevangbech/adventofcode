@@ -1,6 +1,9 @@
-#include "../includes.h"
+#include <bits/stdc++.h>
+#include "../md5.h"
+
+using namespace std;
 
 int main() 
 {
-	std::cout << 1 << std::endl;
+	cout << md5("hello world!") << endl;
 }
