@@ -7,13 +7,14 @@ PZL2 = PZL2
 CFLAGS = -Os -std=c++17;
 CC = g++
 INPUT = input.txt
-# INPUT = test.txt
-RUN = awk -f pipe.awk $(INPUT) | ./$(PRG) | ../out
-RUN_PUZZLE1 = awk -f pipe.awk $(INPUT) | ./$(PZL1) | ../
-RUN_PUZZLE2 = awk -f pipe.awk $(INPUT) | ./$(PZL2) | ../
+#INPUT = test.txt
+RUN = awk -f pipe.awk $(INPUT) | ./$(PRG)
+RUN_PUZZLE1 = awk -f pipe.awk $(INPUT) | ./$(PZL1)
+RUN_PUZZLE2 = awk -f pipe.awk $(INPUT) | ./$(PZL2)
 
 run: build input
-	$(RUN)
+	@echo -----------
+	@$(RUN)
 
 build:
 	$(CC) -o $(PRG) $(SRC) $(CFLAGS)
