@@ -23,7 +23,7 @@ puzzle:
 	@$(CC) -o $(PZL2) puzzle2.cpp $(CFLAGS)
 	@echo "part 1"
 	@$(RUN_PUZZLE1)
-	@echo -e "\npart 2"
+	@echo "\npart 2"
 	@$(RUN_PUZZLE2)
 	@rm -rf $(PZL1) $(PZL2)
 
