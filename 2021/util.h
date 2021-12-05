@@ -1,4 +1,9 @@
+typedef long long ll;
+
 inline bool _EOF() {return (std::cin >> std::ws).eof(); }
+ll binary(const std::vector<bool>& v)
+{return std::accumulate(rbegin(v),rend(v),0,
+	[](auto x, auto y) {return (x << 1) + y;});}
 
 inline std::vector<std::string> read_input()
 {
@@ -7,7 +12,6 @@ inline std::vector<std::string> read_input()
 	while (std::getline(std::cin, line)) v.push_back(line);
 	return v;
 }
-
 
 inline void findPermutations(std::string str, int leftIndex, int rightIndex, std::vector<std::string>& v)
 {
