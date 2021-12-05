@@ -20,6 +20,20 @@ void pGame(const allboard& b) {
 	}
 }
 
+void pGameV2(const allboard& b) {
+	for_each(begin(b), end(b), [&](auto& vv)
+	{
+		for_each(begin(vv),end(vv),[&](auto& v) 
+		{
+			for_each(begin(v), end(v), [&](auto& e) 
+			{
+				cout << e.first << ";" << e.second << "\t";
+			});
+			cout << endl;
+		});
+	});
+}
+
 void pBoard(const board& b) {
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < n; j++) {
@@ -29,35 +43,29 @@ void pBoard(const board& b) {
 	}
 }
 
-void flipNumber(board& b, int number) {
-	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < n; j++) {
-			if (b[i][j].first == number) {
-				b[i][j].second = true;
-				return;
-			}
-		}
-	}
+void flipNumber(board& b, int number)
+{
+	for_each(begin(b), end(b), [&](auto& v)
+	{
+		transform(begin(v),end(v),begin(v), [&](auto& row)
+		{
+			if (row.first == number)
+				row.second = true;
+			return row;
+		});
+	});
 }
 
 int sumBoard(const board& b) {
-	int x = 0;
-	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < n; j++) {
-			if (!b[i][j].second) {
-				x += b[i][j].first; 
-			}
-		}
-	}
-	return x;
+	return accumulate(begin(b),end(b),0,
+	[](auto lhs, const auto& rhs) 
+	{return accumulate(begin(rhs),end(rhs),lhs,
+	[](auto lhs1, const auto& rhs1){return lhs1 + (rhs1.second ? 0 : rhs1.first);});});
 }
 
 bool checkrow(board& b, int row)
 {
-	int i = 0;
-	for (auto x : b[row])
-		i += x.second;
-	return n == i;
+	return n == accumulate(begin(b[row]),end(b[row]),0,[](auto lhs, const auto& rhs){return lhs + rhs.second;});
 }
 
 bool checkcol(board& b, int col)
@@ -68,8 +76,6 @@ bool checkcol(board& b, int col)
 	}
 	return n == i;
 }
-
-
 
 int main() 
 {
@@ -106,13 +112,7 @@ int main()
 	}
 
 	bool winner;
-	int gameidx;
-	int lastidx;
-	vector<bool> winners(game.size());
-	fill(begin(winners),end(winners),false);
 	for (auto& s : draws) {
-		cout << s << " ";
-		gameidx = 0;
 		// cout << s << " ";
 		for (auto& v : game) {
 			flipNumber(v,s);
@@ -122,21 +122,11 @@ int main()
 				winner = checkrow(v, i);
 				winner = winner ? true : checkcol(v, i); 
 				if (winner) {
-					winners[gameidx] = true;
+					int sum = sumBoard(v);
+					cout << sum*s << endl;
+					return 0;
 				}
 			}
-			gameidx++;
-		}
-		cout << std::count(begin(winners), end(winners), false) << endl; 
-		if (std::count(begin(winners), end(winners), false) == 1)
-		{
-			lastidx = std::find(begin(winners), end(winners), false) - winners.begin();
-		}
-		if (std::count(begin(winners), end(winners), false) == 0)
-		{
-			int ok = sumBoard(game[lastidx]);
-			cout << ok*s << endl;
-			return 0;
 		}
 	}
 }
