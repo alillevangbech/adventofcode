@@ -17,9 +17,9 @@ int main()
 			else
 				zeros[i]++;
 	transform(begin(ones), end(ones), begin(zeros), back_inserter(tmp), greater_equal<int>{});
-	cb = accumulate(rbegin(tmp), rend(tmp), 0, [](int x, int y) {return (x << 1) + y; });
+	cb = binary(tmp);
 	tmp.flip();
-	oz = accumulate(rbegin(tmp), rend(tmp), 0, [](int x, int y) {return (x << 1) + y; });
+	oz = binary(tmp);
 	cout << cb * oz << endl;
 	return 0;
 }
