@@ -3,44 +3,23 @@
 #include <unordered_map>
 #include "../util.h"
 using namespace std;
+int mean(const vector<int>& v)
+{
+	return std::reduce(begin(v),end(v)) / v.size();
+}
+
 int main() 
 {
-	int x;
-	int step;
-	int factor;
-	int sum;
+	int x, res, sum = 0;
 	vector<int> v;
 	while (cin >> x) {
 		v.push_back(x);
 	}
-	int max = *max_element(begin(v),end(v));
-	int min = *min_element(begin(v),end(v));
-	unordered_map<int, int> umap;
-	// int middle = (max - min);
-	for (int i = min; i <= max; i++)
-	{
-		umap[i] = 0;
-		for (int r : v) {
-
-			sum = 0;
-			factor = 1;
-			step = r < i ? 1 : -1;
-			while (r != i) {
-				r += step;
-				sum += factor;
-				factor++;
-			}
-			
-			umap[i] += sum;
-		}
+	res = mean(v);
+	for (auto i : v) {
+		int n = abs(i - res);
+		sum += (n*(n+1))/2;
 	}
-	auto res = min_element(begin(umap),end(umap), [](auto& x, auto& y)
-		{
-			return x.second < y.second;
-		});
-	cout << "idx: " << res->first  << "|" << res->second << endl;
-
-
-
+	cout << sum << endl;
 	return 0;
 }
