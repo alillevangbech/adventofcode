@@ -7,7 +7,7 @@ PZL2 = PZL2
 CFLAGS = -Os -std=c++17;
 CC = g++
 INPUT = input.txt
-INPUT = test.txt
+# INPUT = test.txt
 RUN = awk -f pipe.awk $(INPUT) | ./$(PRG) | ../out
 RUN_PUZZLE1 = awk -f pipe1.awk $(INPUT) | ./$(PZL1)
 RUN_PUZZLE2 = awk -f pipe2.awk $(INPUT) | ./$(PZL2)
