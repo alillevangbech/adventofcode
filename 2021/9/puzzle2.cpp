@@ -3,9 +3,8 @@
 #include <numeric>
 #include "../util.h"
 using namespace std;
-int inline dx(int y, int x, int n_row) {
-return y*n_row + x;
-}
+int inline dx(int y, int x, int n_row) { return y*n_row + x;}
+int inline dxmax(int n_col, int n_row) { return n_col*n_row + 1;}
 
 void inline add_edge(std::vector<int> adj[], int src, int dest)
 {
@@ -49,7 +48,7 @@ int main()
 	int n_row = input[0].size();
 	int n_col = input.size();
 	vector<int> v;
-	int n = d2maxidx(n_row, n_col) +5 ;
+	int n = dxmax(n_row, n_col);
 	vector<int> adj[n];
 	for (int i = 0; i < n_col; i++) {
 		for (int j = 0; j < n_row; j++) {
@@ -115,11 +114,8 @@ int main()
 		sums.push_back(qq);
 	}
 
-	while (sums.size() > 3) {
-		sums.erase(min_element(begin(sums),end(sums)));
-	}
+	sort(begin(sums),end(sums));
+	cout << accumulate(sums.end()-3, sums.end(), 1, multiplies<int>{}) << endl;
 
-	cout << accumulate(sums.begin(), sums.end(), 1, multiplies<int>{});
-
-	return 1;
+	return 0;
 }
