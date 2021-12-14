@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-#include "../util.h"
+#include "../util.h" 
 using namespace std;
 #define n 1000
 static int umap[n][n];
