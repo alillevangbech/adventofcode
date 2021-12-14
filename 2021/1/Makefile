@@ -1,5 +1,5 @@
 .POSIX:
-
+ 
 SRC = main.cpp
 PRG = AOC
 PZL1 = PZL1
