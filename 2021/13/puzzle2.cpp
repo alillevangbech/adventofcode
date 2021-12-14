@@ -12,7 +12,7 @@ vector<char> mergex(vector<char>& v, int idx) {
 		vq.push_back(v[i] == '#' || v[j] == '#' ? '#' : '.');
 	}
 	return vq;
-}
+} 
 vector<char> mergey(vector<char>& v1, vector<char>& v2) {
 	vector<char> vq;
 	for (int i = 0; i < v2.size(); i++)
