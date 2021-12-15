@@ -1,16 +1,13 @@
 #include <bits/stdc++.h>
-#include <cstdint>
-#include <cstdio>
+#include <iterator>
+#include <queue>
 #include "../util.h"
 using namespace std;
-#define INF INT32_MAX
+#define INF 100000
 typedef pair<int,int> IIP;
 typedef vector<vector<IIP>> _graph;
-void djik(int s, _graph& graph, vector<int>& d, vector<int>& p);
-vector<int> restore_path(int s, int t, vector<int> const& p);
+void djik(int s, _graph& graph, vector<int>& d);
 int inline idx(int y, int x, int nx) {return y*nx+x;};
-void pm(const vector<vector<int>>& matrix);
-void pmm(const vector<vector<pair<int,int>>>& matrix);
 int main() 
 {
 	char c;
@@ -25,12 +22,9 @@ int main()
 		matrix.back().push_back(c - '0');
 	}
 	matrix.erase(matrix.end());
+
 	nx = matrix[0].size();
 	ny = matrix.size();
-	bigmatrix = matrix;
-
-
-
 	int curidx = 0;
 	_graph graph(ny*nx);
 	auto addedge = [&curidx,nx,&matrix,&graph](int x, int y) {graph[curidx].push_back({idx(y, x, nx),matrix[y][x]});};
@@ -54,64 +48,39 @@ int main()
 				addedge(x, y+1);
 		}
 	}
-	
 
-	vector<int> p,d;
-	djik(idx(0, 0, nx), graph, d, p);
+	vector<int> d;
+	djik(idx(0, 0, nx), graph, d);
 	cout << d[idx(ny-1, nx-1, nx)] << endl;
-
-
-
 	return 0;
-}
-
-void pm(const vector<vector<int>>& matrix)
-{
-	for (auto yy : matrix) {
-		for (auto xx : yy) {
-			cout << xx;
-		}
-		cout << endl;
-	}
-}
-
-void pmm(const vector<vector<pair<int,int>>>& matrix)
-{
-	for (auto yy : matrix) {
-		for (auto xx : yy) {
-			cout << xx.second;
-		}
-		cout << endl;
-	}
 }
 
 void djik(int s, _graph& graph, vector<int>& d) {
 	int n = graph.size();
 	d.assign(n,INF);
-	vector<bool> u(n, false);
-
+	vector<bool> visited(n,false);
 	d[s] = 0;
-	for (int i = 0; i < n; i++) {
-		int v = -1;
-		for (int j = 0; j < n; j++) {
-			if (!u[j] && (v == -1 || d[j] < d[v]))
-				v = j;
-		}
+	priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> q;
+	int u,alt;
+	
+	for (int i = 0; i < graph.size(); i++)
+		q.push({d[i],i});
 
-		if (d[v] == INF)
-			break;
+	while (!q.empty()) {
+		u = q.top().second;
+		q.pop();
+		
+		if (visited[u] == true)
+			continue;
 
-		u[v] = true;
-		for (auto edge : graph[v]) {
-			int to = edge.first;
-			int len = edge.second;
+		visited[u] = true;
 
-			if (d[v] + len < d[to]) {
-				d[to] = d[v] + len;
+		for (auto v : graph[u]) {
+			alt = d[u] + v.second;
+			if (alt < d[v.first]) {
+				d[v.first] = alt;
+				q.push({alt, v.first});
 			}
 		}
 	}
 }
-
-void fucker(const vector<vector<int>>& matrix);
-
