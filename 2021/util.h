@@ -1,4 +1,6 @@
 typedef long long ll;
+typedef unsigned long long ull;
+
 #define toRadian(x) x*M_PI/180L
 #define toDegree(x) x*180L/M_PI
 
@@ -13,6 +15,13 @@ inline std::vector<std::string> read_input()
 	std::vector<std::string> v;
 	while (std::getline(std::cin, line)) v.push_back(line);
 	return v;
+}
+
+inline void print_input(const std::vector<std::string>& input)
+{
+	for (auto x : input) {
+		std::cout << x << std::endl;
+	}
 }
 
 inline void findPermutations(std::string str, int leftIndex, int rightIndex, std::vector<std::string>& v)

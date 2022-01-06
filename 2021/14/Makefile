@@ -1,5 +1,5 @@
 .POSIX:
-  
+
 SRC = main.cpp
 PRG = AOC
 PZL1 = PZL1
@@ -35,9 +35,13 @@ save2:
 	cp main.cpp puzzle2.cpp
 	cp pipe.awk pipe2.awk
 
+create:
+	mv puzzle1.cpp main.cpp
+	mv pipe1.awk pipe.awk
+	rm puzzle2.cpp pipe2.awk
+
 awkinput:
 	awk -f pipe.awk $(INPUT)
-
 
 input:
 	@touch $(INPUT)
